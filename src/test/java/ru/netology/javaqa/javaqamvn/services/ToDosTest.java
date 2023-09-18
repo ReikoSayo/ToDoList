@@ -61,4 +61,35 @@ class ToDosTest {
         Task[] actual = todos.search(query);
         Assertions.assertArrayEquals(expected, actual);
     }
+
+    SimpleTask simpleTask2 = new SimpleTask(7, "Позвонить сестре");
+
+    @Test
+    void searchTwoSimpleTaskInTodosTest() {
+        todos.add(simpleTask2);
+        String query = "Позвонить";
+        Task[] expected = {simpleTask, simpleTask2};
+        Task[] actual = todos.search(query);
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    String[] subtasks2 = {"Позвонить Яне", "Позвонить Илье"};
+    Epic epic2 = new Epic(57, subtasks2);
+
+    @Test
+    void searchTwoTaskInTodosTest() {
+        todos.add(epic2);
+        String query = "Позвонить";
+        Task[] expected = {simpleTask, epic2};
+        Task[] actual = todos.search(query);
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    void noSearchTaskInTodosTest() {
+        String query = "Родители";
+        Task[] expected = {};
+        Task[] actual = todos.search(query);
+        Assertions.assertArrayEquals(expected, actual);
+    }
 }
